@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { ChangeEvent, ReactElement, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
 import InputField from './InputField'
@@ -43,13 +43,29 @@ function NewRecordDialog({
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
   function handleInputChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) {
     const { name, value } = e.target
-    setNewRecord(prev => ({
-      ...prev,
-      [name]: name === 'accessAllowed' ? value === 'true' : value,
-    }))
+
+    setNewRecord(prevData => {
+      switch (name) {
+        case 'hiredSince':
+          return {
+            ...prevData,
+            [name]: new Date(value),
+          }
+        case 'accessAllowed':
+          return {
+            ...prevData,
+            [name]: value === 'true',
+          }
+        default:
+          return {
+            ...prevData,
+            [name]: value,
+          }
+      }
+    })
   }
 
   function clearState() {
@@ -73,6 +89,7 @@ function NewRecordDialog({
       recordSchema.parse(newRecord)
       onSubmit(newRecord)
       onClose()
+      clearState()
     } catch (err) {
       if (err instanceof z.ZodError) {
         const validationErrors: { [key: string]: string } = {}
@@ -81,8 +98,6 @@ function NewRecordDialog({
         })
         setErrors(validationErrors)
       }
-    } finally {
-      clearState()
     }
   }
 

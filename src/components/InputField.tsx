@@ -25,7 +25,7 @@ function InputField({
       {type === 'select' ? (
         <select
           name={name}
-          value={value ? 'true' : 'false'}
+          value={value as string}
           onChange={onChange}
           className={`w-full p-2 border rounded ${error ? 'border-red-500' : ''}`}
         >
@@ -35,6 +35,14 @@ function InputField({
             </option>
           ))}
         </select>
+      ) : type === 'date' ? (
+        <input
+          type='date'
+          name={name}
+          value={value as string}
+          onChange={onChange}
+          className={`w-full p-2 border rounded ${error ? 'border-red-500' : ''}`}
+        />
       ) : (
         <input
           type={type}
