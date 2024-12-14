@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { ReactElement, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
 import InputField from './InputField'
@@ -24,11 +24,11 @@ interface NewRecordDialogProps {
   onSubmit: (record: CsvRecord) => void
 }
 
-export function NewRecordDialog({
+function NewRecordDialog({
   isOpen,
   onClose,
   onSubmit,
-}: NewRecordDialogProps): React.ReactElement | null {
+}: NewRecordDialogProps): ReactElement | null {
   const [newRecord, setNewRecord] = useState<CsvRecord>({
     uid: uuidv4(),
     firstName: '',
@@ -173,3 +173,5 @@ export function NewRecordDialog({
     </div>
   )
 }
+
+export default NewRecordDialog

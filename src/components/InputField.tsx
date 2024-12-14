@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 interface InputFieldProps {
   label: string
@@ -10,7 +10,7 @@ interface InputFieldProps {
   options?: { value: string; label: string }[] // for select input
 }
 
-const InputField: React.FC<InputFieldProps> = ({
+function InputField({
   label,
   name,
   type,
@@ -18,7 +18,7 @@ const InputField: React.FC<InputFieldProps> = ({
   onChange,
   error,
   options,
-}: InputFieldProps) => {
+}: InputFieldProps): ReactElement {
   return (
     <div className='mb-4'>
       <label className='block text-sm font-medium'>{label}</label>

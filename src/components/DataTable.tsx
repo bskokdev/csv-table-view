@@ -1,8 +1,7 @@
 import useReadCsv, { CsvRecord } from '../hooks/useReadCsv.ts'
 import { ReactElement, useState } from 'react'
-import { TableHeaderRow } from './TableHeaderRow.tsx'
-import { TableDataRow } from './TableDataRow.tsx'
-import { NewRecordDialog } from './NewRecordDialog.tsx'
+import { TableDataRow, TableHeaderRow } from './TableRows.tsx'
+import NewRecordDialog from './NewRecordDialog.tsx'
 
 export interface DataTableProps {
   csvFilePath: string
